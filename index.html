@@ -1,0 +1,944 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080c14">
+  <meta name="description" content="ZeroPass is building an open, neutral trust coordination infrastructure connecting independent identity systems worldwide.">
+  <meta property="og:title" content="ZeroPass — Trust Without Borders">
+  <meta property="og:description" content="A new foundation for global digital trust. Independent. Interoperable. Open.">
+  <meta property="og:type" content="website">
+  <title>ZeroPass — Trust Without Borders</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080c14;
+      --surface: #101827;
+      --surface-2: #141f30;
+      --text: #f1f5fc;
+      --muted: #9aa9bd;
+      --blue: #63a8ff;
+      --cyan: #55e0df;
+      --line: rgba(151, 178, 211, .15);
+      --gradient: linear-gradient(120deg, #69aaff, #55e0df);
+      --radius: 20px;
+      --max: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 80% 8%, rgba(36, 111, 193, .16), transparent 38%),
+        radial-gradient(ellipse at 8% 42%, rgba(36, 111, 193, .09), transparent 35%),
+        var(--bg);
+      color: var(--text);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .container {
+      width: min(var(--max), calc(100% - 48px));
+      margin-inline: auto;
+    }
+
+    .announcement {
+      padding: 9px 16px;
+      text-align: center;
+      font-size: 12px;
+      letter-spacing: .07em;
+      color: #b8d8ff;
+      background: rgba(64, 133, 212, .09);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .announcement span {
+      color: var(--cyan);
+      margin-right: 7px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(8, 12, 20, .83);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font: 700 23px "Space Grotesk", sans-serif;
+      letter-spacing: -.8px;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(99, 168, 255, .5);
+      border-radius: 12px;
+      background: linear-gradient(145deg, rgba(99, 168, 255, .19), rgba(85, 224, 223, .06));
+      color: var(--cyan);
+      font-size: 20px;
+    }
+
+    .brand span:last-child { color: var(--blue); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a:hover { color: white; }
+
+    .nav-cta, .primary-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      border: 0;
+      border-radius: 11px;
+      padding: 12px 19px;
+      background: var(--gradient);
+      color: #07111d;
+      font-weight: 700;
+      font-size: 14px;
+      transition: transform .2s, box-shadow .2s;
+      cursor: pointer;
+    }
+
+    .nav-cta:hover, .primary-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(72, 161, 239, .22);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--line);
+      color: white;
+      border-radius: 9px;
+      padding: 8px 11px;
+      cursor: pointer;
+    }
+
+    .hero {
+      min-height: 690px;
+      display: grid;
+      grid-template-columns: 1.12fr .88fr;
+      align-items: center;
+      gap: 55px;
+      padding-top: 90px;
+      padding-bottom: 100px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 12px;
+      border: 1px solid rgba(85, 224, 223, .22);
+      border-radius: 100px;
+      background: rgba(85, 224, 223, .06);
+      color: #9be9e7;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 12px var(--cyan);
+    }
+
+    h1, h2, h3 {
+      font-family: "Space Grotesk", sans-serif;
+      line-height: 1.12;
+      letter-spacing: -1.5px;
+    }
+
+    h1 {
+      max-width: 720px;
+      margin: 25px 0 23px;
+      font-size: clamp(48px, 6.3vw, 76px);
+      font-weight: 600;
+    }
+
+    .gradient-text {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-copy {
+      max-width: 570px;
+      margin: 0 0 32px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.85;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .secondary-btn {
+      padding: 11px 5px;
+      color: #c6d4e7;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .secondary-btn:hover { color: var(--cyan); }
+
+    .hero-note {
+      margin-top: 25px;
+      color: #71839b;
+      font-size: 12px;
+    }
+
+    .visual {
+      position: relative;
+      min-height: 430px;
+      display: grid;
+      place-items: center;
+      isolation: isolate;
+    }
+
+    .orbit {
+      position: absolute;
+      width: min(100%, 410px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(99, 168, 255, .16);
+      border-radius: 50%;
+      animation: rotate 35s linear infinite;
+    }
+
+    .orbit::before, .orbit::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(85, 224, 223, .13);
+      border-radius: 50%;
+    }
+
+    .orbit::before { inset: 12%; }
+    .orbit::after { inset: 26%; }
+
+    .orbit-dot {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 20px var(--cyan);
+    }
+
+    .dot-one { top: 13%; left: 27%; }
+    .dot-two { right: 11%; top: 55%; background: var(--blue); box-shadow: 0 0 20px var(--blue); }
+    .dot-three { bottom: 16%; left: 28%; }
+
+    .core {
+      width: 185px;
+      height: 185px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid rgba(99, 168, 255, .5);
+      background:
+        radial-gradient(circle at 35% 30%, rgba(85, 224, 223, .18), transparent 55%),
+        linear-gradient(145deg, #172b44, #0b1422);
+      box-shadow: 0 0 80px rgba(59, 147, 230, .19), inset 0 0 40px rgba(99, 168, 255, .08);
+      animation: float 5s ease-in-out infinite;
+      z-index: 2;
+    }
+
+    .core svg { width: 93px; height: 93px; }
+
+    .visual-label {
+      position: absolute;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(16, 24, 39, .9);
+      color: #d7e6f8;
+      font-size: 12px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 12px 35px rgba(0,0,0,.2);
+    }
+
+    .label-top { top: 30px; right: 0; }
+    .label-bottom { bottom: 42px; left: 0; }
+
+    .section {
+      padding: 105px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-heading {
+      max-width: 690px;
+      margin-bottom: 48px;
+    }
+
+    .section-heading h2 {
+      margin: 17px 0;
+      font-size: clamp(34px, 4.5vw, 49px);
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 620px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature {
+      min-height: 245px;
+      padding: 29px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(20, 31, 48, .85), rgba(12, 19, 31, .85));
+      transition: border-color .25s, transform .25s;
+    }
+
+    .feature:hover {
+      transform: translateY(-5px);
+      border-color: rgba(99, 168, 255, .4);
+    }
+
+    .feature-icon {
+      width: 47px;
+      height: 47px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(99, 168, 255, .25);
+      border-radius: 14px;
+      background: rgba(99, 168, 255, .09);
+      color: var(--cyan);
+      font-size: 22px;
+    }
+
+    .feature h3 {
+      margin: 24px 0 11px;
+      font-size: 21px;
+      letter-spacing: -.5px;
+    }
+
+    .feature p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .manifesto {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      align-items: center;
+      gap: 65px;
+      padding: 55px;
+      border: 1px solid rgba(99, 168, 255, .2);
+      border-radius: 26px;
+      background:
+        radial-gradient(ellipse at 10% 50%, rgba(44, 118, 193, .14), transparent 55%),
+        var(--surface);
+    }
+
+    .manifesto h2 {
+      font-size: clamp(32px, 4vw, 46px);
+      margin: 0;
+    }
+
+    .manifesto p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.9;
+      margin: 0;
+    }
+
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .principle {
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      color: #dce9f8;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .principle span {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--cyan);
+      font-size: 19px;
+    }
+
+    .signup {
+      padding: 100px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .signup-panel {
+      position: relative;
+      overflow: hidden;
+      max-width: 790px;
+      margin: auto;
+      padding: 58px;
+      text-align: center;
+      border: 1px solid rgba(99, 168, 255, .25);
+      border-radius: 26px;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(54, 135, 218, .19), transparent 65%),
+        #101827;
+    }
+
+    .signup-panel h2 {
+      margin: 18px 0;
+      font-size: clamp(34px, 5vw, 48px);
+    }
+
+    .signup-panel > p {
+      max-width: 540px;
+      margin: 0 auto 28px;
+      color: var(--muted);
+    }
+
+    .signup-form {
+      display: flex;
+      gap: 10px;
+      max-width: 530px;
+      margin: auto;
+    }
+
+    .signup-form input {
+      flex: 1;
+      min-width: 0;
+      padding: 15px 17px;
+      border: 1px solid rgba(151, 178, 211, .25);
+      border-radius: 11px;
+      outline: none;
+      background: #09111d;
+      color: white;
+    }
+
+    .signup-form input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(99, 168, 255, .12);
+    }
+
+    .signup-form input::placeholder { color: #72839b; }
+
+    .form-note {
+      min-height: 24px;
+      margin-top: 15px;
+      color: #8da1b9;
+      font-size: 12px;
+    }
+
+    .form-status {
+      min-height: 25px;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+
+    .form-status.success { color: var(--cyan); }
+    .form-status.error { color: #ff9d9d; }
+
+    footer {
+      padding: 32px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-copy, .footer-links {
+      color: #7f90a6;
+      font-size: 12px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 22px;
+    }
+
+    .footer-links a:hover { color: var(--cyan); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes rotate { to { transform: rotate(360deg); } }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    @media (max-width: 850px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 15px;
+        padding-top: 75px;
+      }
+      .hero-copy { margin-inline: auto; }
+      .hero-actions { justify-content: center; }
+      .visual { min-height: 390px; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .manifesto { grid-template-columns: 1fr; gap: 25px; }
+    }
+
+    @media (max-width: 620px) {
+      .container { width: min(100% - 32px, var(--max)); }
+      nav { min-height: 68px; }
+      .menu-toggle { display: block; }
+      .nav-cta { display: none; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        padding: 20px 24px 25px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 17px;
+        background: #0c1421;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 5px 0; }
+
+      .hero { min-height: auto; padding: 70px 0 65px; }
+      h1 { font-size: clamp(43px, 12vw, 60px); }
+      .hero-copy { font-size: 15px; }
+      .visual { min-height: 330px; }
+      .orbit { width: 300px; }
+      .core { width: 145px; height: 145px; }
+      .core svg { width: 75px; height: 75px; }
+      .label-top { right: -2px; top: 15px; }
+      .label-bottom { left: -2px; bottom: 22px; }
+
+      .section { padding: 75px 0; }
+      .grid { grid-template-columns: 1fr; }
+      .feature { min-height: auto; }
+      .manifesto { padding: 30px 23px; }
+      .principles { grid-template-columns: 1fr; }
+      .signup { padding: 70px 0; }
+      .signup-panel { padding: 38px 22px; }
+      .signup-form { flex-direction: column; }
+      .signup-form .primary-btn { width: 100%; padding: 15px; }
+      .footer-inner { justify-content: center; text-align: center; }
+      .footer-links { justify-content: center; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="announcement">
+    <span>●</span> BUILDING THE NEXT FOUNDATION FOR DIGITAL TRUST
+  </div>
+
+  <header>
+    <nav class="container" aria-label="Main navigation">
+      <a href="#home" class="brand" aria-label="ZeroPass home">
+        <span class="brand-mark">Z</span>
+        Zero<span>Pass</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle"
+        aria-label="Toggle navigation" aria-expanded="false">
+        ☰
+      </button>
+
+      <div class="nav-links" id="navLinks">
+        <a href="#vision">Vision</a>
+        <a href="#principles">Principles</a>
+        <a href="#about">About</a>
+        <a href="#join">Join us</a>
+      </div>
+
+      <a class="nav-cta" href="#join">Get involved <span>↗</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="container hero" id="home">
+      <div class="hero-content">
+        <div class="eyebrow"><i></i> A new trust infrastructure</div>
+
+        <h1>
+          Trust without<br>
+          <span class="gradient-text">borders.</span>
+        </h1>
+
+        <p class="hero-copy">
+          The digital world needs a better foundation for trust.
+          ZeroPass is building an open, neutral coordination infrastructure
+          designed to connect independent identity systems worldwide.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#vision" class="primary-btn">Discover the vision <span>→</span></a>
+          <a href="#join" class="secondary-btn">Become an early supporter ↗</a>
+        </div>
+
+        <div class="hero-note">
+          Independent by design. Interoperable by principle.
+        </div>
+      </div>
+
+      <div class="visual" aria-label="Abstract illustration of interconnected trust systems">
+        <div class="orbit">
+          <span class="orbit-dot dot-one"></span>
+          <span class="orbit-dot dot-two"></span>
+          <span class="orbit-dot dot-three"></span>
+        </div>
+
+        <div class="core">
+          <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+            <path d="M50 7L84 26.5V65.5L50 85L16 65.5V26.5L50 7Z"
+              stroke="#63A8FF" stroke-width="2"/>
+            <path d="M50 23L70 34.5V57.5L50 69L30 57.5V34.5L50 23Z"
+              stroke="#55E0DF" stroke-width="2"/>
+            <path d="M50 39L59 44.5V55.5L50 61L41 55.5V44.5L50 39Z"
+              fill="#55E0DF"/>
+          </svg>
+        </div>
+
+        <div class="visual-label label-top">◈ Independent systems</div>
+        <div class="visual-label label-bottom">✦ Shared trust standards</div>
+      </div>
+    </section>
+
+    <section class="section" id="vision">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow"><i></i> The vision</div>
+          <h2>A connected world needs <span class="gradient-text">a new foundation.</span></h2>
+          <p>
+            Identity systems exist across countries, institutions and industries.
+            But trust does not always travel with them. ZeroPass aims to make
+            independent systems work together without forcing them into one.
+          </p>
+        </div>
+
+        <div class="grid">
+          <article class="feature reveal">
+            <div class="feature-icon">⌘</div>
+            <h3>Interoperability</h3>
+            <p>
+              Connect existing identity ecosystems through common,
+              open coordination standards rather than replacing them.
+            </p>
+          </article>
+
+          <article class="feature reveal">
+            <div class="feature-icon">◇</div>
+            <h3>Neutral coordination</h3>
+            <p>
+              Enable independent participants to coordinate trust
+              without depending on a single global controlling authority.
+            </p>
+          </article>
+
+          <article class="feature reveal">
+            <div class="feature-icon">⬡</div>
+            <h3>Privacy by design</h3>
+            <p>
+              Make data minimization a foundational requirement.
+              Trust coordination should not require a universal identity database.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="principles">
+      <div class="container">
+        <div class="manifesto reveal">
+          <div>
+            <div class="eyebrow"><i></i> Our principles</div>
+            <h2>Build the foundation.<br><span class="gradient-text">Not another silo.</span></h2>
+          </div>
+
+          <div>
+            <p>
+              ZeroPass is being developed around a simple conviction:
+              global trust should not depend on one platform, one identity
+              provider or one institution. Its long-term direction is an
+              independently operated network guided by open standards,
+              accountable governance and verifiable security.
+            </p>
+
+            <div class="principles">
+              <div class="principle"><span>01</span>Open standards</div>
+              <div class="principle"><span>02</span>Independent operators</div>
+              <div class="principle"><span>03</span>Verifiable trust</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow"><i></i> What ZeroPass stands for</div>
+          <h2>Trust should be <span class="gradient-text">verifiable.</span></h2>
+          <p>
+            The objective is not to centralize identity. It is to establish
+            a common coordination layer through which independent systems
+            can evaluate trust according to transparent rules.
+          </p>
+        </div>
+
+        <div class="grid">
+          <article class="feature reveal">
+            <div class="feature-icon">◎</div>
+            <h3>No single point of control</h3>
+            <p>
+              A governance and operational model designed to distribute
+              responsibility and reduce systemic dependency.
+            </p>
+          </article>
+
+          <article class="feature reveal">
+            <div class="feature-icon">⌁</div>
+            <h3>Designed to evolve</h3>
+            <p>
+              Open architecture and replaceable technical components
+              to support responsible long-term evolution.
+            </p>
+          </article>
+
+          <article class="feature reveal">
+            <div class="feature-icon">✓</div>
+            <h3>Security as a foundation</h3>
+            <p>
+              Security, privacy, accountability and independent review
+              are essential design requirements, not marketing promises.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="signup" id="join">
+      <div class="container">
+        <div class="signup-panel reveal">
+          <div class="eyebrow"><i></i> Join the journey</div>
+          <h2>Be part of <span class="gradient-text">what comes next.</span></h2>
+          <p>
+            Follow the development of ZeroPass and receive occasional
+            updates about the project, its research and its progress.
+          </p>
+
+          <form class="signup-form"
+            id="signupForm"
+            action="https://formspree.io/f/YOUR_FORMSPREE_ID"
+            method="POST">
+
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Your email address"
+              autocomplete="email"
+              maxlength="254"
+              required
+              aria-label="Your email address">
+
+            <input type="hidden" name="_subject" value="New ZeroPass early interest registration">
+            <input type="hidden" name="source" value="ZeroPass official landing page">
+
+            <button class="primary-btn" id="submitButton" type="submit">
+              Join ZeroPass <span>→</span>
+            </button>
+          </form>
+
+          <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+          <div class="form-note">
+            No spam. No unnecessary data collection. Unsubscribe at any time.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <a href="#home" class="brand">
+        <span class="brand-mark">Z</span>
+        Zero<span>Pass</span>
+      </a>
+
+      <div class="footer-copy">
+        © <span id="year"></span> ZeroPass. Building trust beyond borders.
+      </div>
+
+      <div class="footer-links">
+        <a href="#vision">Vision</a>
+        <a href="#principles">Principles</a>
+        <a href="#join">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.textContent = isOpen ? "✕" : "☰";
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰";
+      });
+    });
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach(element => {
+      revealObserver.observe(element);
+    });
+
+    const signupForm = document.getElementById("signupForm");
+    const formStatus = document.getElementById("formStatus");
+    const submitButton = document.getElementById("submitButton");
+
+    signupForm.addEventListener("submit", async event => {
+      event.preventDefault();
+
+      const endpoint = signupForm.action;
+      if (endpoint.includes("YOUR_FORMSPREE_ID")) {
+        formStatus.textContent =
+          "Registration is not activated yet. The Formspree endpoint must be configured.";
+        formStatus.className = "form-status error";
+        return;
+      }
+
+      if (!signupForm.reportValidity()) return;
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending...";
+      formStatus.textContent = "";
+      formStatus.className = "form-status";
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          body: new FormData(signupForm),
+          headers: { "Accept": "application/json" }
+        });
+
+        if (!response.ok) {
+          throw new Error("Registration could not be completed.");
+        }
+
+        signupForm.reset();
+        formStatus.textContent =
+          "Thank you. Your interest in ZeroPass has been received.";
+        formStatus.className = "form-status success";
+
+      } catch (error) {
+        formStatus.textContent =
+          "Something went wrong. Please try again later.";
+        formStatus.className = "form-status error";
+
+      } finally {
+        submitButton.disabled = false;
+        submitButton.innerHTML = 'Join ZeroPass <span>→</span>';
+      }
+    });
+  </script>
+</body>
+</html>
